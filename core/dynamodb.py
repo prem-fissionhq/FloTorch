@@ -76,13 +76,14 @@ class DynamoDBOperations:
         try:
             params = {}
 
+            if filter_expression:
+                params["FilterExpression"] = filter_expression
+            if expression_values:
+                params["ExpressionAttributeValues"] = self._handle_decimal_type(expression_values)
+            if expression_attribute_names:
+                params["ExpressionAttributeNames"] = expression_attribute_names
+
             while True:
-                if filter_expression:
-                    params["FilterExpression"] = filter_expression
-                if expression_values:
-                    params["ExpressionAttributeValues"] = self._handle_decimal_type(expression_values)
-                if expression_attribute_names:
-                    params["ExpressionAttributeNames"] = expression_attribute_names
                 if last_evaluated_key:
                     params['ExclusiveStartKey'] = last_evaluated_key
 
