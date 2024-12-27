@@ -69,16 +69,16 @@ def compute_actual_price(
             (df["model"] == retrieval_model) & (df["Region"] == aws_region)
         ]["output_price"]
 
-        is_prices_present, prices_missing = validate_params(
-            embedding_model_price=embedding_model_price,
-            retrieval_model_input_price=retrieval_model_input_price,
-            retrieval_model_output_price=retrieval_model_output_price,
-        )
+        if embedding_model_price.empty:
+            logger.error(f"No embedding model {embedding_model} price found.")
+            return None
 
-        if not is_prices_present:
-            logger.error(
-                f"No matching price data found for the provided models : {', '.join(prices_missing)}."
-            )
+        if retrieval_model_input_price.empty:
+            logger.error(f"No retrieval model {retrieval_model} input price found.")
+            return None
+        
+        if retrieval_model_output_price.empty:
+            logger.error(f"No retrieval model {retrieval_model} output price found.")
             return None
 
         embedding_model_price = float(
