@@ -135,6 +135,14 @@ const columns = ref<TableColumn<ProjectExperiment>[]>([
     cell: ({ row }) => {
       return row.original.cost? useHumanCurrencyAmount(row.original.cost) : "-"
     }
+  },
+  {
+    header: "Re-ranking Model",
+    accessorKey: "rerank_model_id",
+    enableHiding: true,
+    cell: ({ row }) => {
+      return row.original.config?.rerank_model_id? row.original.config.rerank_model_id : "-"
+    }
   }
 ])
 
