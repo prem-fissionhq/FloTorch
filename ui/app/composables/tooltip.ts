@@ -16,5 +16,6 @@ temp_retrieval_llm: 'Adjust the randomness of the model\'s output. Higher values
 retrieval: "Select the language model used to retrieve and generate responses based on the retrieved chunks from the Amazon family.",
 hirearchical_parent_chunk_size: 'Set the size of the parent chunks for hierarchical chunking.',
 hirearchical_child_chunk_size: 'Set the size of the child chunks for hierarchical chunking.',
-hirearchical_chunk_overlap_percentage: 'Set the overlap percentage for hierarchical chunking.'
+hirearchical_chunk_overlap_percentage: 'Set the overlap percentage for hierarchical chunking.',
+rerank_model_id: "Select an Amazon Bedrock model to reorder and refine search results from your vector store based on relevance."
 }
