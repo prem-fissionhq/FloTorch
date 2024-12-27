@@ -508,6 +508,7 @@ export const useProjectUploadConfig = () => {
         retrieval: config.retrieval?.retrieval?.map((pc: any) => {
           return useGetModelData("retrieval", pc.model);
         }),
+        rerank_model_id: undefined,
       },
     };
     return id;
