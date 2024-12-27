@@ -13,15 +13,23 @@ const props = withDefaults(
   }
 );
 
+const spacingLabels:any = {
+  "validexperiments" : "Valid Experiments"
+}
+
 // Function to capitalize and format path segments
 const formatPathSegment = (segment: string): string => {
   // Check if there's a custom label first
   if (props.customLabels[segment]) {
     return props.customLabels[segment];
+  }else if(spacingLabels[segment]){
+    return spacingLabels[segment]
+  }else{
+// Remove hyphens and underscores, then capitalize
+  return pascalCase(segment);
   }
 
-  // Remove hyphens and underscores, then capitalize
-  return pascalCase(segment);
+  
 };
 
 // Computed property to generate breadcrumb items
@@ -48,7 +56,7 @@ const breadcrumbItems = computed((): BreadcrumbItem[] => {
     const isDynamicSegment: string | undefined = route.params[segment] as
       | string
       | undefined;
-
+     
     items.push({
       label: isDynamicSegment
         ? String(route.params[segment])

@@ -151,7 +151,7 @@ const columnVisibility = ref({
         <UButton label="Columns" color="neutral" variant="outline" trailing-icon="i-lucide-chevron-down" />
       </UDropdownMenu>
     </div>
-    <UTable ref="table" v-model:column-visibility="columnVisibility" sticky :columns="columns" :data="experiments"
+    <UTable class="h-100" sticky ref="table" v-model:column-visibility="columnVisibility" :columns="columns" :data="experiments"
       :loading="isLoading">
       <template #directional_pricing-cell="{ row }">
         {{ useHumanCurrencyAmount(row.original.directional_pricing) }}

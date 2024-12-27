@@ -179,7 +179,7 @@ const columnVisibility = ref({
         <UButton label="Columns" color="neutral" variant="outline" trailing-icon="i-lucide-chevron-down" />
       </UDropdownMenu>
     </div>
-    <UTable v-model:column-visibility="columnVisibility" ref="table" :columns="columns" :data="experiments">
+    <UTable class="h-100" sticky v-model:column-visibility="columnVisibility" ref="table" :columns="columns" :data="experiments">
       <template #id-cell="{ row }">
         <a 
           href="#"
