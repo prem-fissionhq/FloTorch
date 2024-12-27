@@ -80,9 +80,8 @@ export const useProjectCreateMeta = () => {
           value: "fixed",
         },
         {
-          label: "Hierarchical (Coming Soon)",
+          label: "Hierarchical",
           value: "hierarchical",
-          disabled: true,
         },
       ],
       chunkSize: [
@@ -100,6 +99,56 @@ export const useProjectCreateMeta = () => {
         },
       ],
       chunkOverlapPercentage: [
+        {
+          label: "5",
+          value: 5,
+        },
+        {
+          label: "10",
+          value: 10,
+        },
+        {
+          label: "15",
+          value: 15,
+        },
+        {
+          label: "20",
+          value: 20,
+        },
+      ],
+      hirearchical_parent_chunk_size: [
+        {
+          label: "512",
+          value: 512,
+        },
+        {
+          label: "1024",
+          value: 1024,
+        },
+        {
+          label: "2048",
+          value: 2048,
+        },
+        {
+          label: "4096",
+          value: 4096,
+        },
+      ],
+      hirearchical_child_chunk_size: [
+        {
+          label: "128",
+          value: 128,
+        },
+        {
+          label: "256",
+          value: 256,
+        },
+        {
+          label: "512",
+          value: 512,
+        },
+      ],
+      hirearchical_chunk_overlap_percentage: [
         {
           label: "5",
           value: 5,
@@ -409,6 +458,11 @@ export const useProjectUploadConfig = () => {
         embedding: config.indexing?.embedding?.map((pc: any) => {
           return useGetModelData("indexing", pc.model);
         }),
+        chunk_overlap: undefined,
+        chunk_size: undefined,
+        hirearchical_parent_chunk_size: undefined,
+        hirearchical_child_chunk_size: undefined,
+        hirearchical_chunk_overlap_percentage: undefined,
       },
       retrieval: {
         ...config.retrieval,

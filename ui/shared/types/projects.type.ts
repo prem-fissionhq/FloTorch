@@ -49,7 +49,8 @@ export const ProjectCreateIndexingStrategySchema = z.object({
     .array()
     .min(1, {
       message: "At least one chunk size is required",
-    }),
+    })
+    .optional(),
   chunk_overlap: z
     .number({
       required_error: "At least one chunk overlap percentage is required",
@@ -57,7 +58,35 @@ export const ProjectCreateIndexingStrategySchema = z.object({
     .array()
     .min(1, {
       message: "At least one chunk overlap percentage is required",
-    }),
+    })
+    .optional(),
+  hirearchical_parent_chunk_size: z
+    .number({
+      required_error: "At least one chunk overlap percentage is required",
+    })
+    .array()
+    .min(1, {
+      message: "At least one chunk overlap percentage is required",
+    })
+    .optional(),
+  hirearchical_child_chunk_size: z
+    .number({
+      required_error: "At least one chunk overlap percentage is required",
+    })
+    .array()
+    .min(1, {
+      message: "At least one chunk overlap percentage is required",
+    })
+    .optional(),
+  hirearchical_chunk_overlap_percentage: z
+    .number({
+      required_error: "At least one chunk overlap percentage is required",
+    })
+    .array()
+    .min(1, {
+      message: "At least one chunk overlap percentage is required",
+    })
+    .optional(),
   vector_dimension: z
     .number({
       required_error: "At least one vector dimension is required",
@@ -77,6 +106,29 @@ export const ProjectCreateIndexingStrategySchema = z.object({
   embedding: ProjectCreateModelSchema.array().min(1, {
     message: "At least one embedding model is required",
   }),
+}).superRefine((data, ctx) => {
+  console.log(data, ctx)
+  if (
+    (data.chunking_strategy.includes("hierarchical") && 
+    !data.hirearchical_child_chunk_size?.length) || 
+    (data.chunking_strategy.includes("hierarchical") && 
+    !data.hirearchical_parent_chunk_size?.length) || 
+    (data.chunking_strategy.includes("hierarchical") && 
+    !data.hirearchical_chunk_overlap_percentage?.length)
+  ) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Hierarchical parent chunk size, child chunk size and chunk overlap percentage are required when using hierarchical chunking strategy",
+      path: ["hirearchical_parent_chunk_size", "hirearchical_child_chunk_size", "hirearchical_chunk_overlap_percentage"],
+    });
+  } 
+  if((data.chunking_strategy.includes("fixed") && !data.chunk_size?.length) || (data.chunking_strategy.includes("fixed") && !data.chunk_overlap?.length)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Chunk size and chunk overlap percentage are required when using fixed chunking strategy",
+      path: ["chunk_size", "chunk_overlap"],
+    });
+  }
 });
 
 export type ProjectCreateIndexingStrategy = z.infer<

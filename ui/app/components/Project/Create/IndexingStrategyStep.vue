@@ -18,6 +18,9 @@ const modelValue = defineModel<ProjectCreateIndexingStrategy>({
 const state = reactive<Partial<ProjectCreateIndexingStrategy>>({
   chunk_overlap: modelValue.value.chunk_overlap || undefined,
   chunk_size: modelValue.value.chunk_size || undefined,
+  hirearchical_parent_chunk_size: modelValue.value.hirearchical_parent_chunk_size || undefined,
+  hirearchical_child_chunk_size: modelValue.value.hirearchical_child_chunk_size || undefined,
+  hirearchical_chunk_overlap_percentage: modelValue.value.hirearchical_chunk_overlap_percentage || undefined,
   embedding: modelValue.value.embedding || undefined,
   chunking_strategy: modelValue.value.chunking_strategy || undefined,
   vector_dimension: modelValue.value.vector_dimension || undefined,
@@ -48,7 +51,9 @@ const meta = useProjectCreateMeta()
         <FieldTooltip field-name="chunking_strategy" />
       </template>
     </UFormField>
-    <UFormField name="chunk_size"
+    <div v-if="state.chunking_strategy?.includes('fixed')">
+      <UCard>
+        <UFormField name="chunk_size"
       :label="`Chunk Size ${state?.chunk_size?.length === 0 || state?.chunk_size === undefined ? '' : `(${state?.chunk_size?.length})`}`"
       required>
       <USelectMenu v-model="state.chunk_size" value-key="value" multiple :items="meta.indexingStrategy.chunkSize"
@@ -63,9 +68,43 @@ const meta = useProjectCreateMeta()
       <USelectMenu v-model="state.chunk_overlap" value-key="value" multiple
         :items="meta.indexingStrategy.chunkOverlapPercentage" class="w-full" />
       <template #hint>
-        <FieldTooltip field-name="chunk_overlap" />
-      </template>
-    </UFormField>
+            <FieldTooltip field-name="chunk_overlap" />
+          </template>
+        </UFormField>
+      </UCard>
+    </div>
+    
+    <div v-if="state.chunking_strategy?.includes('hierarchical')">
+      <UCard>
+        <UFormField name="hirearchical_parent_chunk_size"
+      :label="`Hirearchical Parent Chunk Size ${state?.hirearchical_parent_chunk_size?.length === 0 || state?.hirearchical_parent_chunk_size === undefined ? '' : `(${state?.hirearchical_parent_chunk_size?.length})`}`"
+      required>
+        <USelectMenu v-model="state.hirearchical_parent_chunk_size" value-key="value" multiple
+          :items="meta.indexingStrategy.hirearchical_parent_chunk_size" class="w-full" />
+        <template #hint>
+          <FieldTooltip field-name="hirearchical_parent_chunk_size" />
+        </template>
+      </UFormField>
+      <UFormField name="hirearchical_child_chunk_size"
+        :label="`Hirearchical Child Chunk Size ${state?.hirearchical_child_chunk_size?.length === 0 || state?.hirearchical_child_chunk_size === undefined ? '' : `(${state?.hirearchical_child_chunk_size?.length})`}`"
+        required>
+        <USelectMenu v-model="state.hirearchical_child_chunk_size" value-key="value" multiple
+        :items="meta.indexingStrategy.hirearchical_child_chunk_size" class="w-full" />
+        <template #hint>
+          <FieldTooltip field-name="hirearchical_child_chunk_size" />
+        </template>
+      </UFormField>
+      <UFormField name="hirearchical_chunk_overlap_percentage"
+        :label="`Hirearchical Chunk Overlap Percentage ${state?.hirearchical_chunk_overlap_percentage?.length === 0 || state?.hirearchical_chunk_overlap_percentage === undefined ? '' : `(${state?.hirearchical_chunk_overlap_percentage?.length})`}`"
+        required>
+        <USelectMenu v-model="state.hirearchical_chunk_overlap_percentage" value-key="value" multiple
+        :items="meta.indexingStrategy.hirearchical_chunk_overlap_percentage" class="w-full" />
+        <template #hint>
+          <FieldTooltip field-name="hirearchical_chunk_overlap_percentage" />
+        </template>
+      </UFormField>
+      </UCard>
+    </div>
     <UFormField name="embedding"
       :label="`Embedding Model ${state?.embedding?.length === 0 || state?.embedding === undefined ? '' : `(${state?.embedding?.length})`}`"
       required>

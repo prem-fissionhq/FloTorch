@@ -13,5 +13,8 @@ numberOfChunksRetrieved: 'Specify how many of the most relevant chunks should be
 n_shot_prompts: 'Define the number of examples to include in the prompt for the model during few-shot learning tasks.',
 knn_num: 'Set the number of nearest neighbours to consider when searching for similar embeddings in the vector index.',
 temp_retrieval_llm: 'Adjust the randomness of the model\'s output. Higher values produce more diverse outputs, while lower values yield more focused responses.',
-retrieval: "Select the language model used to retrieve and generate responses based on the retrieved chunks from the Amazon family."
+retrieval: "Select the language model used to retrieve and generate responses based on the retrieved chunks from the Amazon family.",
+hirearchical_parent_chunk_size: 'Set the size of the parent chunks for hierarchical chunking.',
+hirearchical_child_chunk_size: 'Set the size of the child chunks for hierarchical chunking.',
+hirearchical_chunk_overlap_percentage: 'Set the overlap percentage for hierarchical chunking.'
 }
