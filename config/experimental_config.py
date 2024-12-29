@@ -13,6 +13,9 @@ class ExperimentalConfig(BaseModel):
     chunking_strategy: str = Field(alias="chunking_strategy")
     chunk_size: int = Field(alias="chunk_size")
     chunk_overlap: int = Field(alias="chunk_overlap")
+    hierarchical_parent_chunk_size: int = Field(alias="hierarchical_parent_chunk_size")
+    hierarchical_child_chunk_size: int = Field(alias="hierarchical_child_chunk_size")
+    hierarchical_chunk_overlap_percentage: int = Field(alias="hierarchical_chunk_overlap_percentage")
     embedding_service: str = Field(alias="embedding_service")
     embedding_model: str = Field(alias="embedding_model")
     embedding_model_endpoint: str = None 

@@ -149,6 +149,17 @@ def process_questions(
                 experimentalConfig.index_id, query_embedding, experimentalConfig.knn_num
             )
 
+            if experimentalConfig.chunking_strategy.lower() == 'hierarchial':
+                overall_documents = []
+                parent_dict = {}
+                for document in query_results:
+                    temp_document = document
+                    parent_id = document.get('parent_id')
+                    if parent_id not in parent_dict:
+                        overall_documents.append(temp_document)
+                        parent_dict[parent_id] = 1
+                query_results = overall_documents
+
             if experimentalConfig.rerank_model_id and experimentalConfig.rerank_model_id.lower() != 'none':
                 #Rerank the query results
                 logger.info(f"Into reranking for experiment {experimentalConfig.experiment_id} for question {idx+1}")
