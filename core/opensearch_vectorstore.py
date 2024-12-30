@@ -162,8 +162,7 @@ class OpenSearchVectorDatabase(VectorDatabase):
                     }
                 }
             },
-            "_source": True,
-            "fields" : ["text"]
+            "_source": ["text", "parent_id"]
         }
 
         response = self.client.search(index=index_name, body=query)
