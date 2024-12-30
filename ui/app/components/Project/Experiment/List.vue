@@ -135,6 +135,14 @@ const columns = ref<TableColumn<ProjectExperiment>[]>([
     cell: ({ row }) => {
       return row.original.cost? useHumanCurrencyAmount(row.original.cost) : "-"
     }
+  },
+  {
+    header: "Re-ranking Model",
+    accessorKey: "rerank_model_id",
+    enableHiding: true,
+    cell: ({ row }) => {
+      return row.original.config?.rerank_model_id? row.original.config.rerank_model_id : "-"
+    }
   }
 ])
 
@@ -179,7 +187,7 @@ const columnVisibility = ref({
         <UButton label="Columns" color="neutral" variant="outline" trailing-icon="i-lucide-chevron-down" />
       </UDropdownMenu>
     </div>
-    <UTable v-model:column-visibility="columnVisibility" ref="table" :columns="columns" :data="experiments">
+    <UTable class="h-100" sticky v-model:column-visibility="columnVisibility" ref="table" :columns="columns" :data="experiments">
       <template #id-cell="{ row }">
         <a 
           href="#"
