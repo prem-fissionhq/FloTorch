@@ -50,6 +50,7 @@ const columns = ref<TableColumn<ExperimentQuestionMetric>[]>([
       </div>
     </template>
     <UTable
+      class="h-100"
       sticky
       :columns="columns"
       :data="questionMetrics?.question_metrics"
