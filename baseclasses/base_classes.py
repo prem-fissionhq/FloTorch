@@ -225,13 +225,13 @@ class EvaluationMetrics():
 
     def to_dict(self) -> Dict[str, str]:
         return {
-            'faithfulness_score': str(self.faithfulness_score),
-            'context_precision_score': str(self.context_precision_score),
-            'aspect_critic_score': str(self.aspect_critic_score),
-            'answers_relevancy_score': str(self.answers_relevancy_score),
-            'string_similarity_score': str(self.string_similarity),
-            'context_recall_score': str(self.context_recall),
-            'rouge_score': str(self.rouge_score)
+            'faithfulness_score': str(self.faithfulness_score) if self.faithfulness_score is not None else '0.0',
+            'context_precision_score': str(self.context_precision_score) if self.context_precision_score is not None else '0.0',
+            'aspect_critic_score': str(self.aspect_critic_score) if self.aspect_critic_score is not None else '0.0',
+            'answers_relevancy_score': str(self.answers_relevancy_score) if self.answers_relevancy_score is not None else '0.0',
+            'string_similarity_score': str(self.string_similarity) if self.string_similarity is not None else '0.0',
+            'context_recall_score': str(self.context_recall) if self.context_recall is not None else '0.0',
+            'rouge_score': str(self.rouge_score) if self.rouge_score is not None else '0.0'
         }
     
     def to_dynamo_format(self) -> dict:
