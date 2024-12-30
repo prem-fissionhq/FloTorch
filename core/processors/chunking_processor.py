@@ -1,6 +1,6 @@
 from typing import Dict, List, Type, Union
 from core.chunking import FixedChunker, HierarchicalChunker
-from baseclasses.base_classes import BaseChunker, BaseHierarchialChunker
+from baseclasses.base_classes import BaseChunker, BaseHierarchicalChunker
 import logging
 from config.experimental_config import ExperimentalConfig
 
@@ -10,7 +10,7 @@ logger.setLevel(logging.INFO)
 class ChunkingProcessor:
     """Processor for managing text chunking."""
 
-    CHUNKER_STRATEGIES: Dict[str, Union[Type[BaseChunker], Type[BaseHierarchialChunker]]] = {
+    CHUNKER_STRATEGIES: Dict[str, Union[Type[BaseChunker], Type[BaseHierarchicalChunker]]] = {
         "Fixed": FixedChunker,
         "Hierarchical": HierarchicalChunker
     }
@@ -19,7 +19,7 @@ class ChunkingProcessor:
         self.experimentalConfig = experimentalConfig
         self.chunker = self._initialize_chunker()
 
-    def _initialize_chunker(self) -> Union[BaseChunker, BaseHierarchialChunker]:
+    def _initialize_chunker(self) -> Union[BaseChunker, BaseHierarchicalChunker]:
         """Initialize the chunker based on the selected strategy."""
         strategy = self.experimentalConfig.chunking_strategy.lower()  # Normalize to lower case
         chunker_strategies = {key.lower(): value for key, value in self.CHUNKER_STRATEGIES.items()}  # Case-insensitive map
@@ -32,7 +32,7 @@ class ChunkingProcessor:
                 self.experimentalConfig.chunk_size,
                 self.experimentalConfig.chunk_overlap
             )
-        elif strategy == 'hierarchial':
+        elif strategy == 'hierarchical':
             return chunker_strategies[strategy](
                 self.experimentalConfig.hierarchical_parent_chunk_size,
                 self.experimentalConfig.hierarchical_child_chunk_size,

@@ -1,9 +1,9 @@
 from typing import List
-from baseclasses.base_classes import BaseHierarchialChunker
+from baseclasses.base_classes import BaseHierarchicalChunker
 from langchain.text_splitter import CharacterTextSplitter
 import uuid
 
-class HierarchicalChunker(BaseHierarchialChunker):
+class HierarchicalChunker(BaseHierarchicalChunker):
     """Hierarchical chunking strategy."""
     def chunk(self, text : str) -> List[List[str]]:
         overlap_tokens = int((self.chunk_overlap / 100) * self.child_chunk_size)

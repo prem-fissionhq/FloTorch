@@ -54,7 +54,7 @@ def chunk_embed_store(config : Config, experimentalConfig : ExperimentalConfig)-
         chunks = ChunkingProcessor(experimentalConfig).chunk(process_pdf_from_folder(pdf_folder_path))
         
         embed_chunks = chunks
-        if experimentalConfig.chunking_strategy.lower() == 'hierarchial':
+        if experimentalConfig.chunking_strategy.lower() == 'hierarchical':
             for chunk in chunks:
                 embed_chunks.append(chunk[2]) # Child Chunk only
 
@@ -65,7 +65,7 @@ def chunk_embed_store(config : Config, experimentalConfig : ExperimentalConfig)-
         for _, _, metadata in embedding_results:
             total_index_embed_tokens += int(metadata['inputTokens'])
 
-        if experimentalConfig.chunking_strategy.lower() == 'hierarchial':
+        if experimentalConfig.chunking_strategy.lower() == 'hierarchical':
             for i, chunk in enumerate(chunks):
                 embedding_results[i].append(chunk[0], chunk[1])
             documents = [

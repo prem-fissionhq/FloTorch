@@ -149,7 +149,7 @@ def process_questions(
                 experimentalConfig.index_id, query_embedding, experimentalConfig.knn_num
             )
 
-            if experimentalConfig.chunking_strategy.lower() == 'hierarchial':
+            if experimentalConfig.chunking_strategy.lower() == 'hierarchical':
                 overall_documents = []
                 parent_dict = {}
                 for document in query_results:

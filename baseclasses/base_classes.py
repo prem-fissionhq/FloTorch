@@ -115,7 +115,7 @@ class BaseChunker(ABC):
         """Abstract method for chunking text."""
         pass
 
-class BaseHierarchialChunker(ABC):
+class BaseHierarchicalChunker(ABC):
     """Abstract base class for chunking strategies."""
 
     def __init__(self, parent_chunk_size: int, child_chunk_size: int, chunk_overlap: int) -> None:
