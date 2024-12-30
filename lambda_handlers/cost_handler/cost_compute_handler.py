@@ -95,6 +95,10 @@ def lambda_handler(event, context):
         logger.info(f"Experiment {experiment_id} Actual Cost (in $): {total_cost}")
 
         # Update DynamoDB with the new cost
+        if total_cost is None:
+            logger.error(f"Experiment {experiment_id} Actual Cost is None")
+            total_cost = 0
+
         try:
             table = dynamodb.Table(experiment_table)
             table.update_item(
