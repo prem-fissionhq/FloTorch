@@ -55,6 +55,7 @@ def chunk_embed_store(config : Config, experimentalConfig : ExperimentalConfig)-
         
         embed_chunks = chunks
         if experimentalConfig.chunking_strategy.lower() == 'hierarchical':
+            embed_chunks = []
             for chunk in chunks:
                 embed_chunks.append(chunk[2]) # Child Chunk only
 
@@ -66,8 +67,12 @@ def chunk_embed_store(config : Config, experimentalConfig : ExperimentalConfig)-
             total_index_embed_tokens += int(metadata['inputTokens'])
 
         if experimentalConfig.chunking_strategy.lower() == 'hierarchical':
+            temp_results = []
             for i, chunk in enumerate(chunks):
-                embedding_results[i].append(chunk[0], chunk[1])
+                temp_embedding = list(embedding_results[i])
+                temp_embedding.extend([chunk[0], chunk[1]])
+                temp_results.append(temp_embedding)
+            embedding_results = temp_results
             documents = [
                 {
                     "_index": experimentalConfig.index_id,
