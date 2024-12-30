@@ -70,7 +70,7 @@ const columns = ref<TableColumn<ValidExperiment>[]>([
   {
     header: "Chunk Size",
     enableHiding: true,
-    accessorKey: "chunk_size"
+    accessorKey: "chunk_size",
   },
   {
     header: "Chunk Overlap Percentage",
@@ -158,6 +158,17 @@ const columnVisibility = ref({
       </template>
       <template #chunking_strategy-cell="{ row }">
         {{ useHumanChunkingStrategy(row.original.chunking_strategy) }}
+      </template>
+      <template #chunk_size-header="{ column }">
+        <div class="flex items-center gap-2">
+          Chunk Size
+          <UTooltip arrow text="Chunk Size is the size of the chunks that are created from the document. For Fixed chunking strategy, it is the size of the chunk. For Hierarchical chunking strategy, it is the format [child chunk size, parent chunk size].">
+            <UButton icon="i-lucide-info" size="md" color="neutral" variant="ghost" />
+          </UTooltip>
+        </div>
+      </template>
+      <template #chunk_size-cell="{ row }">
+        {{ useHumanChunkingStrategy(row.original.chunking_strategy) === 'Fixed' ? row.original.chunk_size : [row.original.hirearchical_child_chunk_size, row.original.hirearchical_parent_chunk_size] }}
       </template>
       <template #indexing_algorithm-cell="{ row }">
         {{ useHumanIndexingAlgorithm(row.original.indexing_algorithm) }}
