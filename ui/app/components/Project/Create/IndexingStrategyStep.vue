@@ -77,7 +77,7 @@ const meta = useProjectCreateMeta()
     <div v-if="state.chunking_strategy?.includes('hierarchical')">
       <UCard>
         <UFormField name="hierarchical_parent_chunk_size"
-      :label="`hierarchical Parent Chunk Size ${state?.hierarchical_parent_chunk_size?.length === 0 || state?.hierarchical_parent_chunk_size === undefined ? '' : `(${state?.hierarchical_parent_chunk_size?.length})`}`"
+      :label="`Hierarchical Parent Chunk Size ${state?.hierarchical_parent_chunk_size?.length === 0 || state?.hierarchical_parent_chunk_size === undefined ? '' : `(${state?.hierarchical_parent_chunk_size?.length})`}`"
       required>
         <USelectMenu v-model="state.hierarchical_parent_chunk_size" value-key="value" multiple
           :items="meta.indexingStrategy.hierarchical_parent_chunk_size" class="w-full" />
@@ -86,7 +86,7 @@ const meta = useProjectCreateMeta()
         </template>
       </UFormField>
       <UFormField name="hierarchical_child_chunk_size"
-        :label="`hierarchical Child Chunk Size ${state?.hierarchical_child_chunk_size?.length === 0 || state?.hierarchical_child_chunk_size === undefined ? '' : `(${state?.hierarchical_child_chunk_size?.length})`}`"
+        :label="`Hierarchical Child Chunk Size ${state?.hierarchical_child_chunk_size?.length === 0 || state?.hierarchical_child_chunk_size === undefined ? '' : `(${state?.hierarchical_child_chunk_size?.length})`}`"
         required>
         <USelectMenu v-model="state.hierarchical_child_chunk_size" value-key="value" multiple
         :items="meta.indexingStrategy.hierarchical_child_chunk_size" class="w-full" />
@@ -95,7 +95,7 @@ const meta = useProjectCreateMeta()
         </template>
       </UFormField>
       <UFormField name="hierarchical_chunk_overlap_percentage"
-        :label="`hierarchical Chunk Overlap Percentage ${state?.hierarchical_chunk_overlap_percentage?.length === 0 || state?.hierarchical_chunk_overlap_percentage === undefined ? '' : `(${state?.hierarchical_chunk_overlap_percentage?.length})`}`"
+        :label="`Hierarchical Chunk Overlap Percentage ${state?.hierarchical_chunk_overlap_percentage?.length === 0 || state?.hierarchical_chunk_overlap_percentage === undefined ? '' : `(${state?.hierarchical_chunk_overlap_percentage?.length})`}`"
         required>
         <USelectMenu v-model="state.hierarchical_chunk_overlap_percentage" value-key="value" multiple
         :items="meta.indexingStrategy.hierarchical_chunk_overlap_percentage" class="w-full" />

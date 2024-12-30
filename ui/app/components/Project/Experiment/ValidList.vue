@@ -162,7 +162,7 @@ const columnVisibility = ref({
       <template #chunk_size-header="{ column }">
         <div class="flex items-center gap-2">
           Chunk Size
-          <UTooltip arrow text="Chunk Size is the size of the chunks that are created from the document. For Fixed chunking strategy, it is the size of the chunk. For Hierarchical chunking strategy, it is the format [child chunk size, parent chunk size].">
+          <UTooltip arrow text="Chunk size refers to the amount of text or data that is retrieved from a knowledge source (measured in tokens). Fixed chunk size refers to a predefined, consistent length or amount of text that is retrieved from a knowledge source. For Hierarchical chunking strategy, organizes your data  into a hierarchical structure ([child, parent]),for more granular and efficient retrieval it is the format.">
             <UButton icon="i-lucide-info" size="md" color="neutral" variant="ghost" />
           </UTooltip>
         </div>

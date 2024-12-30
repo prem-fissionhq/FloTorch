@@ -62,20 +62,20 @@ export const ProjectCreateIndexingStrategySchema = z.object({
     .optional(),
   hierarchical_parent_chunk_size: z
     .number({
-      required_error: "At least one chunk overlap percentage is required",
+      required_error: "At least one chunk size is required",
     })
     .array()
     .min(1, {
-      message: "At least one chunk overlap percentage is required",
+      message: "At least one chunk size is required",
     })
     .optional(),
   hierarchical_child_chunk_size: z
     .number({
-      required_error: "At least one chunk overlap percentage is required",
+      required_error: "At least one chunk size is required",
     })
     .array()
     .min(1, {
-      message: "At least one chunk overlap percentage is required",
+      message: "At least one chunk size is required",
     })
     .optional(),
   hierarchical_chunk_overlap_percentage: z
