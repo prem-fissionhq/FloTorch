@@ -193,7 +193,7 @@ def remove_invalid_combinations_keys(combinations):
             combination["hierarchical_parent_chunk_size"] = None
             combination["hierarchical_child_chunk_size"] = None
 
-        elif combination.get("chunking_strategy", None) == "hierarchy":
+        elif combination.get("chunking_strategy", None) == "hierarchical":
             combination["chunk_overlap"] = None
             combination["chunk_size"] = None
 
