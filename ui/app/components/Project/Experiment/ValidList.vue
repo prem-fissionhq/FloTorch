@@ -168,7 +168,7 @@ const columnVisibility = ref({
         </div>
       </template>
       <template #chunk_size-cell="{ row }">
-        {{ useHumanChunkingStrategy(row.original.chunking_strategy) === 'Fixed' ? row.original.chunk_size : [row.original.hirearchical_child_chunk_size, row.original.hirearchical_parent_chunk_size] }}
+        {{ useHumanChunkingStrategy(row.original.chunking_strategy) === 'Fixed' ? row.original.chunk_size : [row.original.hierarchical_child_chunk_size, row.original.hierarchical_parent_chunk_size] }}
       </template>
       <template #indexing_algorithm-cell="{ row }">
         {{ useHumanIndexingAlgorithm(row.original.indexing_algorithm) }}

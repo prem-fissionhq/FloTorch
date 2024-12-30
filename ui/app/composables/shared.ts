@@ -116,7 +116,7 @@ export const useProjectCreateMeta = () => {
           value: 20,
         },
       ],
-      hirearchical_parent_chunk_size: [
+      hierarchical_parent_chunk_size: [
         {
           label: "512",
           value: 512,
@@ -134,7 +134,7 @@ export const useProjectCreateMeta = () => {
           value: 4096,
         },
       ],
-      hirearchical_child_chunk_size: [
+      hierarchical_child_chunk_size: [
         {
           label: "128",
           value: 128,
@@ -148,7 +148,7 @@ export const useProjectCreateMeta = () => {
           value: 512,
         },
       ],
-      hirearchical_chunk_overlap_percentage: [
+      hierarchical_chunk_overlap_percentage: [
         {
           label: "5",
           value: 5,
@@ -499,9 +499,9 @@ export const useProjectUploadConfig = () => {
         }),
         chunk_overlap: undefined,
         chunk_size: undefined,
-        hirearchical_parent_chunk_size: undefined,
-        hirearchical_child_chunk_size: undefined,
-        hirearchical_chunk_overlap_percentage: undefined,
+        hierarchical_parent_chunk_size: undefined,
+        hierarchical_child_chunk_size: undefined,
+        hierarchical_chunk_overlap_percentage: undefined,
       },
       retrieval: {
         ...config.retrieval,
