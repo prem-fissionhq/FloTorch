@@ -52,6 +52,10 @@ def is_valid_combination(config, data):
     if (config['embedding']["service"] == "bedrock" and config["embedding"]["model"] == "cohere.embed-english-v3"):
         if config['chunk_size'] != 512 and config['chunk_size'] != 256:
             return False
+    if config.get('chunking_strategy', None) == "hierarchical":
+        # child chunk size should be less than parent chunk size
+        if config.get("hierarchical_child_chunk_size") > config.get("hierarchical_parent_chunk_size"):
+            return False
     return True
 
 
@@ -173,6 +177,27 @@ def read_gt_data(file_path):
         logger.error(f"Error reading the GT-data file: {e}")
         return None, None
 
+def remove_invalid_combinations_keys(combinations):
+    """
+    Adjusts combinations to set irrelevant keys to None based on the value of 'chunking_strategy'.
+
+    Parameters:
+        combinations: List of combinations.
+
+    Returns:
+        list of dict: Updated combinations with irrelevant keys set to None.
+    """
+    for combination in combinations:
+        if combination.get("chunking_strategy", None) == "fixed":
+            combination["hierarchical_chunk_overlap_percentage"] = None
+            combination["hierarchical_parent_chunk_size"] = None
+            combination["hierarchical_child_chunk_size"] = None
+
+        elif combination.get("chunking_strategy", None) == "hierarchy":
+            combination["chunk_overlap"] = None
+            combination["chunk_size"] = None
+
+    return combinations
 
 
 def generate_all_combinations(data):
@@ -187,6 +212,7 @@ def generate_all_combinations(data):
 
     keys = parameters_all.keys()
     combinations = [dict(zip(keys, values)) for values in itertools.product(*parameters_all.values())]
+    combinations = remove_invalid_combinations_keys(combinations)
 
     gt_data = parameters_all["gt_data"][0]
     [num_prompts, num_chars] = read_gt_data(gt_data)
