@@ -1,6 +1,6 @@
 import os
 import boto3
-from utils import read_csv_from_s3
+from utils import read_csv_from_s3, parse_datetime
 from datetime import datetime
 import math
 import logging
@@ -124,10 +124,6 @@ def compute_actual_price(
 def calculate_experiment_duration(experiment):
     """Calculate various durations (total, indexing, retrieval, evaluation) from the experiment dictionary."""
     try:
-
-        def parse_datetime(date_str):
-            return datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%fZ")
-
         def calculate_difference(start_key, end_key):
             if experiment.get(start_key) and experiment.get(end_key):
                 start = parse_datetime(experiment[start_key])
