@@ -96,7 +96,7 @@ const onSubmit = (event: FormSubmitEvent<ProjectCreateDataStrategy>) => {
           @click.prevent="emits('previous')" />
       </div>
       <div>
-        <UButton :disabled="!state.kb_data || !state.gt_data" trailing-icon="i-lucide-arrow-right" :label="nextButtonLabel" type="submit" />
+        <UButton :disabled="!state.kb_data || !state.gt_data || !state.name || !state.region" trailing-icon="i-lucide-arrow-right" :label="nextButtonLabel" type="submit" />
       </div>
     </div>
   </UForm>
