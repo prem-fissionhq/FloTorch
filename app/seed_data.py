@@ -7,8 +7,6 @@ from app.dependencies.database import (
 
 logger = logging.getLogger(__name__)
 
-
-def seed_models(execution_model_invocations_db) -> int:
 MODELS = {
     "bedrock_us.amazon.nova-lite-v1:0": 35,
     "bedrock_us.amazon.nova-micro-v1:0": 35,
@@ -37,6 +35,8 @@ MODELS = {
     "sagemaker_BAAI/bge-large-en-v1.5": 50,
     "bedrock_mistral.mixtral-8x7b-instruct-v0:1": 25
 }
+
+def seed_models(execution_model_invocations_db) -> int:
     """
     Seeds the models data into DynamoDB.
     
