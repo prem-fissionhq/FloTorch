@@ -494,6 +494,9 @@ class StateMachineStack(Stack):
             result_path="$.Item"
         )
 
+        # "Evaluate Indexing Model Check" Choice state
+        evaluate_chunking_strategy_choice = sfn.Choice(self, "Evaluate Chunking Strategy")
+
         # "Extract config from experiment"
         extract_config_from_experiment = sfn.Pass(
             self,
@@ -522,6 +525,40 @@ class StateMachineStack(Stack):
                     "eval_service": "bedrock",
                     "eval_model": "amazon.titan-embed-text-v1",
                     "rerank_model_id.$": "$.Item.Item.config.M.rerank_model_id.S"
+                }
+            },
+            result_path="$.parsedConfig"
+        )
+
+        # "Extract config from experiment"
+        extract_config_from_experiment_hierarchical = sfn.Pass(
+            self,
+            "Extract config from experiment for Hierarchical",
+            parameters={
+                "parsed_config": {
+                    "id.$": "$.Item.Item.id.S",
+                    "index_id.$": "$.Item.Item.index_id.S",
+                    "execution_id.$": "$.Item.Item.execution_id.S",
+                    "experiment_id.$": "$.Item.Item.id.S",
+                    "gt_data.$": "$.Item.Item.config.M.gt_data.S",
+                    "kb_data.$": "$.Item.Item.config.M.kb_data.S",
+                    "indexing_algorithm.$": "$.Item.Item.config.M.indexing_algorithm.S",
+                    "retrieval_model.$": "$.Item.Item.config.M.retrieval_model.S",
+                    "knn_num.$": "$.Item.Item.config.M.knn_num.N",
+                    "chunking_strategy.$": "$.Item.Item.config.M.chunking_strategy.S",
+                    "retrieval_service.$": "$.Item.Item.config.M.retrieval_service.S",
+                    "embedding_model.$": "$.Item.Item.config.M.embedding_model.S",
+                    "embedding_service.$": "$.Item.Item.config.M.embedding_service.S",
+                    "n_shot_prompts.$": "$.Item.Item.config.M.n_shot_prompts.N",
+                    "vector_dimension.$": "$.Item.Item.config.M.vector_dimension.N",
+                    "temp_retrieval_llm.$": "$.Item.Item.config.M.temp_retrieval_llm.N",
+                    "aws_region.$": "$.Item.Item.config.M.region.S",
+                    "eval_service": "bedrock",
+                    "eval_model": "amazon.titan-embed-text-v1",
+                    "rerank_model_id.$": "$.Item.Item.config.M.rerank_model_id.S",
+                    "hierarchical_parent_chunk_size.$": "$.Item.Item.config.M.hierarchical_parent_chunk_size.N",
+                    "hierarchical_child_chunk_size.$": "$.Item.Item.config.M.hierarchical_child_chunk_size.N",
+                    "hierarchical_chunk_overlap_percentage.$": "$.Item.Item.config.M.hierarchical_chunk_overlap_percentage.N"
                 }
             },
             result_path="$.parsedConfig"
@@ -1621,9 +1658,18 @@ class StateMachineStack(Stack):
         # Adjust the chain inside the Experiments Map iterator
         experiments_map_definition = update_experiment_start_time\
             .next(dynamodb_get_item_by_id)\
-            .next(extract_config_from_experiment)\
+            .next(evaluate_chunking_strategy_choice)\
             .next(indexing_model_check)\
             .next(evaluate_indexing_model_check_choice)
+        
+        # Set up the choices for "Evaluate Chunking Strategy"
+        evaluate_chunking_strategy_choice.when(
+            sfn.Condition.string_equals("$.Item.Item.config.M.chunking_strategy.S", "hierarchical"),
+            extract_config_from_experiment_hierarchical.next(indexing_model_check)
+        ).otherwise(
+            extract_config_from_experiment.next(indexing_model_check)
+        )
+
 
         # Set up the choices for "Evaluate Indexing Model Check"
         evaluate_indexing_model_check_choice.when(
