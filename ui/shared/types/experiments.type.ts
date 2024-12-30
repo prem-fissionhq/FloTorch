@@ -4,6 +4,9 @@ export interface ValidExperiment {
   vector_dimension: number;
   chunk_size: number;
   chunk_overlap: number;
+  hierarchical_parent_chunk_size: number;
+  hierarchical_child_chunk_size: number;
+  hierarchical_chunk_overlap_percentage: number;
   indexing_algorithm: string;
   knn_num: number;
   temp_retrieval_llm: number;
