@@ -294,17 +294,17 @@ export const useProjectCreateMeta = () => {
         },
         {
           label: "Amazon Nova Lite V1",
-          value: "amazon.nova-lite-v1:0",
+          value: "us.amazon.nova-lite-v1:0",
           service: "bedrock",
         },
         {
           label: "Amazon Nova Micro V1",
-          value: "amazon.nova-micro-v1:0",
+          value: "us.amazon.nova-micro-v1:0",
           service: "bedrock",
         },
         {
           label: "Amazon Nova Pro V1",
-          value:"amazon.nova-pro-v1:0",
+          value:"us.amazon.nova-pro-v1:0",
           service: "bedrock",
         },
         {
