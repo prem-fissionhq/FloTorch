@@ -1658,10 +1658,10 @@ class StateMachineStack(Stack):
         # Adjust the chain inside the Experiments Map iterator
         experiments_map_definition = update_experiment_start_time\
             .next(dynamodb_get_item_by_id)\
-            .next(evaluate_chunking_strategy_choice)\
-            .next(indexing_model_check)\
-            .next(evaluate_indexing_model_check_choice)
-        
+            .next(evaluate_chunking_strategy_choice)
+
+        indexing_model_check.next(evaluate_indexing_model_check_choice)
+
         # Set up the choices for "Evaluate Chunking Strategy"
         evaluate_chunking_strategy_choice.when(
             sfn.Condition.string_equals("$.Item.Item.config.M.chunking_strategy.S", "hierarchical"),
