@@ -40,11 +40,11 @@ const { data: experiment } = useQuery({
           </tr>
           <tr>
             <td class="font-medium">Chunk Size</td>
-            <td>{{ experiment?.config?.chunk_size }}</td>
+            <td>{{ useHumanChunkingStrategy(experiment?.config?.chunking_strategy) === 'Fixed' ? experiment?.config?.chunk_size : [experiment?.config?.hierarchical_child_chunk_size, experiment?.config?.hierarchical_parent_chunk_size]}}</td>
           </tr>
           <tr>
             <td class="font-medium">Chunk Overlap Percentage</td>
-            <td>{{ experiment?.config?.chunk_overlap }}</td>
+            <td>{{ useHumanChunkingStrategy(experiment?.config?.chunking_strategy) === 'Fixed' ? experiment?.config?.chunk_overlap : experiment?.config?.hierarchical_chunk_overlap_percentage}}</td>
           </tr>
           <tr>
             <td class="font-medium">N Shot Prompts</td>
