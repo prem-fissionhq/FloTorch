@@ -1674,13 +1674,10 @@ class StateMachineStack(Stack):
         # Set up the choices for "Evaluate Indexing Model Check"
         evaluate_indexing_model_check_choice.when(
             sfn.Condition.number_greater_than_equals_json_path("$.modelInvocations.invocations", "$.modelInvocations.limit"),
-            wait_for_indexing_model_update.next(indexing_model_check)
+            wait_for_indexing_model_update.next(indexing_model_check).next(evaluate_indexing_model_check_choice)
         ).otherwise(
-            indexing_model_invocation_update.next(get_latest_status)
+            indexing_model_invocation_update.next(get_latest_status).next(evaluate_indexing_status_choice)
         )
-        get_latest_status.next(evaluate_indexing_status_choice)
-
-        indexing_model_invocation_release_chain = indexing_model_invocation_release.next(proceed_to_retrieval_model_check)
 
         # Set up the choices for "Evaluate Indexing Status"
         evaluate_indexing_status_choice.when(
@@ -1694,6 +1691,8 @@ class StateMachineStack(Stack):
             indexing_model_invocation_release_chain
         ).when(
             sfn.Condition.string_equals("$.Item.Item.index_status.S", "failed"),
+            experiment_failure_chain
+        ).otherwise(
             experiment_failure_chain
         )
 
