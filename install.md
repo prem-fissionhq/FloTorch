@@ -1,13 +1,16 @@
 # FloTorch Installation guide
 
+
 Welcome to FloTorch! This guide will help you set up FloTorch's infrastructure on AWS. We will guide you through the steps.
 
 ## Before You Begin (Prerequisites)
 
 ### 1. AWS Account and Tools
+
 1. AWS Account and a user with the following permissions in AWS
-   ```json
-   {
+
+```json
+{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -125,6 +128,57 @@ Before starting the installation, subscribe to FloTorch:
 | NginxAuthPassword | "YourNginxPassword123!" | 8-41 chars with letters, numbers, symbols |
 
 ### Option 2: Command Line Installation
+
+## What You're Installing
+
+FloTorch creates a comprehensive architecture for managing and deploying machine learning models, combining serverless components with managed services like OpenSearch. Here's what you get:
+
+### Core Infrastructure Components
+
+- **VPC Stack**: Your private network infrastructure
+- **VPC Endpoint Stack**: Secure access to AWS services within the VPC
+- **DynamoDB Stack**: Database tables and S3 bucket for data storage
+- **OpenSearch Stack**: Search functionality
+- **ECR Repository Stack**: Container image repositories
+- **ECS Stack**: Elastic Container Service for running containerized applications
+- **Lambda Stack**: Serverless functions for various operations
+- **State Machine Stack**: Step Functions for orchestration
+- **AppRunner Stack**: Application hosting and management
+
+### Key Features
+
+1. Automated deployment and management
+2. Serverless architecture for cost optimization
+3. Secure VPC configuration
+4. Integrated monitoring and logging
+5. Automated container image management
+
+## Installation Guide
+
+### Option 1: Quick Install (Recommended for Beginners)
+
+1. Click this link: [Install FloTorch (US East 1)](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create?stackName=flotorch-stack&templateURL=https://flotorch-public.s3.us-east-1.amazonaws.com/2.0.1/templates/master-template.yaml)
+
+2. Fill in these details in the CloudFormation console:
+   - **ProjectName**: your-project-name
+     (Example: "flotorch")
+   - **TableSuffix**: unique-suffix
+     (Example: "abc123" - must be 6 lowercase characters)
+   - **ClientName**: your-client-name
+     (Example: "acmecorp" - must be lowercase)
+   - **OpenSearchAdminUser**: admin
+     (Example: "admin")
+   - **OpenSearchAdminPassword**: YourSecurePassword123!
+     (Must be 8-41 characters with letters, numbers, and symbols)
+   - **NginxAuthPassword**: YourNginxPassword123!
+     (Must be 8-41 characters with letters, numbers, and symbols)
+
+3. Click "Review and create" and acknowledge that the stack will create IAM resources
+
+### Option 2: Command Line Installation
+
+For advanced users, you can deploy using the AWS CLI:
+
 ```bash
 aws cloudformation create-stack \
     --stack-name flotorch-stack \
