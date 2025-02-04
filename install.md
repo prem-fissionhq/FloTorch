@@ -1,11 +1,39 @@
-# FloTorch CloudFormation Templates
+# FloTorch Installation guide
 
-Welcome to FloTorch! This guide will help you set up FloTorch's infrastructure on AWS. Whether you're new to cloud computing or an experienced developer, we'll guide you through each step.
+Welcome to FloTorch! This guide will help you set up FloTorch's infrastructure on AWS. We will guide you through the steps.
 
 ## Before You Begin (Prerequisites)
 
 ### 1. AWS Account and Tools
-1. AWS Account with administrative access
+1. AWS Account and a user with the following permissions in AWS
+   ```json
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:*",
+                "s3:*",
+                "ec2:*",
+                "iam:*",
+                "lambda:*",
+                "dynamodb:*",
+                "events:*",
+                "sagemaker:*",
+                "opensearch:*",
+                "ecr:*",
+                "apprunner:*",
+                "cloudwatch:*",
+                "logs:*",
+                "ssm:*",
+                "es:*"
+            ],
+            "Resource": "*"
+        }
+            ]
+   }
+   ```
 2. AWS CLI installed and configured on your computer
 3. AWS Marketplace Subscription (see next section)
 
@@ -30,7 +58,7 @@ Before starting the installation, subscribe to FloTorch:
 | ECR | Repositories |
 | AppRunner | Services |
 
-### 4. Required AI Model Access
+### 4. Required Bedrock Model Access
 
 | Purpose | Model Name |
 |---------|------------|
@@ -54,35 +82,6 @@ Before starting the installation, subscribe to FloTorch:
 | | Mistral AI/mistral.mistral-7b-instruct-v0:2 |
 | | Mistral AI/mistral.mistral-large-2402-v1:0 |
 
-### 5. Required AWS Permissions
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:*",
-                "s3:*",
-                "ec2:*",
-                "iam:*",
-                "lambda:*",
-                "dynamodb:*",
-                "events:*",
-                "sagemaker:*",
-                "opensearch:*",
-                "ecr:*",
-                "apprunner:*",
-                "cloudwatch:*",
-                "logs:*",
-                "ssm:*",
-                "es:*"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
 
 ## What You're Installing
 
@@ -100,13 +99,6 @@ Before starting the installation, subscribe to FloTorch:
 | State Machine Stack | Step Functions for orchestration |
 | AppRunner Stack | Application hosting and management |
 
-### Key Features
-
-1. Automated deployment and management
-2. Serverless architecture for cost optimization
-3. Secure VPC configuration
-4. Integrated monitoring and logging
-5. Automated container image management
 
 ## Installation Guide
 
@@ -189,8 +181,3 @@ aws cloudformation create-stack \
 | DevOps Team | Contact support |
 | Email | info@flotorch.ai |
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
