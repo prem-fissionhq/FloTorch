@@ -27,11 +27,22 @@ Welcome to FloTorch! This guide will help you set up FloTorch's infrastructure o
                 "cloudwatch:*",
                 "logs:*",
                 "ssm:*",
-                "es:*"
+                "es:*",
+                "bedrock:*",
+                "sts:*",
+                "kms:*",
+                "secretsmanager:*",
+                "ecs:*",
+                "states:*",
+                "elasticloadbalancing:*",
+                "application-autoscaling:*",
+                "acm:*",
+                "sns:*",
+                "vpc-lattice:*"
             ],
             "Resource": "*"
         }
-            ]
+    ]
    }
    ```
 2. AWS CLI installed and configured on your computer
